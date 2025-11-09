@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ckan
+      POSTGRES_PASSWORD: ckan
+      POSTGRES_DB: ckan
+
+  solr:
+    image: ckan/solr:2.10
+
+  ckan:
+    image: ghcr.io/mjanez/ckan-docker:2.10.5
+    depends_on:
+      - db
+      - solr
+    ports:
+      - "5000:5000"
+    environment:
+      - CKAN_SQLALCHEMY_URL=postgresql://ckan:ckan@db/ckan
+      - CKAN_SOLR_URL=http://solr:8983/solr/ckan
+      - CKAN_SITE_URL=http://localhost:5000
