@@ -1,0 +1,9 @@
+{
+  "name": "CKAN Test Environment",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "forwardPorts": [5000],
+  "postCreateCommand": "docker run -d -p 5000:5000 ghcr.io/mjanez/ckan-docker:2.10.5"
+}
